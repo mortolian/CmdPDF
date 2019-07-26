@@ -1,18 +1,18 @@
 <?php
+
 namespace cmdPDF;
 
 /**
  * Class Wkhtmltopdf
  *
- * @author Gideon <gideon@gideon.dev>
+ * @author Gideon <project@mortolio.com>
  * @license http://www.opensource.org/licenses/MIT
  */
-
 class Wkhtmltopdf
 {
     const WKHTHMLTOPDF_BINARY_LOCATION = false;
 
-    private $path = "";
+    private $path = '..' . DIRECTORY_SEPARATOR . __DIR__;
     private $file_name = "";
     private $options = "";
 
@@ -31,7 +31,7 @@ class Wkhtmltopdf
      *
      * @param String $folder
      */
-    private function deleteTempFiles(String $folder = __DIR__)
+    private function deleteTempFiles(String $folder = "")
     {
         $cmd = sprintf('rm -f %s/*.html', $folder);
         echo $cmd;
@@ -43,13 +43,10 @@ class Wkhtmltopdf
      */
     public function setFilePath(String $path = "")
     {
-        if (empty($path)) {
-            $this->path = __DIR__;
-        } else {
+        if (!empty($path)) {
             $this->path = $path;
         }
     }
-
 
     /**
      * @param String $file_name
@@ -83,7 +80,7 @@ class Wkhtmltopdf
         }
 
         if (!empty($this->file_name)) {
-            $array = array(__DIR__, $this->file_name);
+            $array = array($this->path, $this->file_name);
             array_walk_recursive($array, function (&$component) {
                 $component = rtrim($component, '/');
             });
@@ -108,7 +105,7 @@ class Wkhtmltopdf
      */
     public function setOptions(Array $options = [])
     {
-        if(!empty($options)) {
+        if (!empty($options)) {
             $this->options = implode(" ", $options);
         }
     }
@@ -168,7 +165,7 @@ class Wkhtmltopdf
         }
 
         // write the string to an HTML file
-        $temp_file = __DIR__ . '/' . md5(time()) . ".html";
+        $temp_file = $this->path . DIRECTORY_SEPARATOR . md5(time()) . ".html";
 
         $tsf = fopen($temp_file, 'w');
         fwrite($tsf, $string);
