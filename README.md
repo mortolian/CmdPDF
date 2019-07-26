@@ -5,6 +5,7 @@ It uses several well known CLI tools to perform it's tasks.
 
 ## TODO
 1. Create unit tests
+2. Streaming PDF to browser
 
 ## Install Dependencies
 
