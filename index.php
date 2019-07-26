@@ -1,6 +1,6 @@
 <?php
 
-include_once 'cmdpdf/cmdpdf.class.php';
+include_once 'src/cmdpdf.class.php';
 
 $title = "TAX_SOMETYHING.pdf";
 
