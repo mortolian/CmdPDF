@@ -1,14 +1,14 @@
 <?php
-namespace cmdPDF\wkhtmltopdf;
+namespace cmdPDF;
 
 /**
- * Class cmdPDF
+ * Class Wkhtmltopdf
  *
  * @author Gideon <gideon@gideon.dev>
  * @license http://www.opensource.org/licenses/MIT
  */
 
-class CmdPDF
+class Wkhtmltopdf
 {
     const WKHTHMLTOPDF_BINARY_LOCATION = false;
 

@@ -1,6 +1,6 @@
 <?php
-namespace cmdPDF\cmdpdf;
+namespace cmdPDF;
 
 
-class cmdPDF {
+class CmdPDF {
 }

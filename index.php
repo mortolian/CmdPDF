@@ -1,11 +1,10 @@
 <?php
+/**
+ * cmdPDF Example
+ */
 
 include_once 'src/wkhtmltopdf.php';
 
-$mpdf = new cmdPDF();
-$mpdf->setFileName('test.pdf');
-$mpdf->setOptions([
-    '--collate',
-    '--page-size A4'
-]);
-$mpdf->url2pdf('https://www.google.com');
+$pdf = new cmdPDF\Wkhtmltopdf();
+$pdf->setFileName('test.pdf');
+$pdf->url2pdf('http://www.google.com');
