@@ -1,9 +1,13 @@
-# PDF Creator
+# Command PDF
+
+Command PDF is a small wrapper which is helpful with PDF tasks in PHP.
+It uses several well known CLI tools to perform it's tasks. 
 
 ## TODO
-* Create unit tests
-* PSR-7
-* Composer
+1. PSR-4 and auto loading
+2. PSR-7
+3. Create unit tests
+4. Composer
 
 ## Install Dependencies
 

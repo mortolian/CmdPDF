@@ -1,5 +1,5 @@
 <?php
-//namespace CmdPDF\wkhtmltopdf;
+namespace cmdPDF\wkhtmltopdf;
 
 /**
  * Class cmdPDF
