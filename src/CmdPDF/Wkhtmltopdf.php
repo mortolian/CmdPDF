@@ -1,6 +1,6 @@
 <?php
 
-namespace cmdPDF;
+namespace CmdPDF;
 
 /**
  * Class Wkhtmltopdf
@@ -12,7 +12,8 @@ class Wkhtmltopdf
 {
     const WKHTHMLTOPDF_BINARY_LOCATION = false;
 
-    private $path = '..' . DIRECTORY_SEPARATOR . __DIR__;
+    private $cache_path = __DIR__ . '/../../cache';
+    private $path = __DIR__ . '/../../cache';
     private $file_name = "";
     private $options = "";
 
@@ -23,7 +24,7 @@ class Wkhtmltopdf
 
     public function __destruct()
     {
-        $this->deleteTempFiles();
+        $this->deleteTempFiles($this->cache_path);
     }
 
     /**
@@ -34,7 +35,6 @@ class Wkhtmltopdf
     private function deleteTempFiles(String $folder = "")
     {
         $cmd = sprintf('rm -f %s/*.html', $folder);
-        echo $cmd;
         shell_exec($cmd);
     }
 
@@ -165,7 +165,7 @@ class Wkhtmltopdf
         }
 
         // write the string to an HTML file
-        $temp_file = $this->path . DIRECTORY_SEPARATOR . md5(time()) . ".html";
+        $temp_file = $this->cache_path . DIRECTORY_SEPARATOR . md5(time()) . ".html";
 
         $tsf = fopen($temp_file, 'w');
         fwrite($tsf, $string);

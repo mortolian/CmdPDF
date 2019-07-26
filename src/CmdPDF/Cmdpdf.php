@@ -1,5 +1,5 @@
 <?php
-namespace cmdPDF;
+namespace CmdPDF;
 
 
 class CmdPDF {

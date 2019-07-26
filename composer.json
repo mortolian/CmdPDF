@@ -1,5 +1,5 @@
 {
-  "name": "mortolio/cmdPDF",
+  "name": "mortolio/cmd-pdf",
   "type": "library",
   "description": "Command PDF is a small wrapper which is helpful with PDF tasks in PHP.",
   "keywords": ["pdf","wrapper","php","wkhtmltopdf"],
@@ -13,4 +13,12 @@
       "role": "Developer"
     }
   ],
+  "minimum-stability": "dev",
+  "require": {
+  },
+  "autoload": {
+    "psr-0": {
+      "CmdPDF": "src/"
+    }
+  }
 }
