@@ -17,9 +17,12 @@
   "require": {
     "php": ">=7.0.0"
   },
+  "require-dev": {
+    "phpunit/phpunit": "^8"
+  },
   "autoload": {
-    "psr-0": {
-      "CmdPDF": "src/"
+    "psr-4": {
+      "CmdPDF\\": "src"
     }
   }
 }

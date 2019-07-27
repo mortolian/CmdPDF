@@ -54,11 +54,19 @@ wkhtmltopdf http://google.com google.pdf
 #### Contributors
 * Gideon
 
+
 #### Resources
 * https://github.com/wkhtmltopdf/wkhtmltopdf
 * http://qpdf.sourceforge.net/files/qpdf-manual.html#ref.basic-options
 * http://zoomadmin.com/HowToInstall/UbuntuPackage/qpdf
 * https://stackoverflow.com/questions/21864382/is-there-any-wkhtmltopdf-option-to-convert-html-text-rather-than-file
+* https://imagemagick.org
+* https://www.xpdfreader.com
+
+
+#### Commercial Resources
+* http://www.pdf-tools.com
+
 
 ## WKHTMLTOPDF
 ##### wkhtmltopdf Exit Codes
