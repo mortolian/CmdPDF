@@ -19,7 +19,8 @@ class Wkhtmltopdf
 
     public function __construct()
     {
-        // Check that the WKHTMLTOPDF command is available to use
+        $check_wkhtmltopdf = new CheckCmd('wkhtmltopdf');
+        $check_wkhtmltopdf->check();
     }
 
     public function __destruct()
@@ -144,9 +145,18 @@ class Wkhtmltopdf
     }
 
 
-    private function genCommand()
+    /**
+     * This will very simply return the best effort version of the command required to
+     * create a PDF through wkhtmltopdf.
+     *
+     * @param String $options
+     * @param String $uri
+     * @param String $destination_path
+     * @return string
+     */
+    private function genCommand(String $options = "", String $uri = "", String $destination_path = "")
     {
-        return false;
+        return sprintf('wkhtmltopdf %s %s %s', $options, $uri, $destination_path);
     }
 
 
@@ -173,8 +183,7 @@ class Wkhtmltopdf
 
         $temp_file = "file://" . $temp_file;
 
-        $cmd = sprintf('wkhtmltopdf %s %s %s', $this->options, $temp_file, $this->getFullPath());
-
+        $cmd = $this->genCommand($this->options, $temp_file, $this->getFullPath());
         $this->run_wkhtml2pdf_cmd($cmd);
 
         return false;
@@ -193,8 +202,7 @@ class Wkhtmltopdf
         if (empty($url)) {
             return false;
         }
-
-        $cmd = sprintf('wkhtmltopdf %s %s %s', $this->options, $url, $this->getFullPath());
+        $cmd = $this->genCommand($this->options, $url, $this->getFullPath());
         echo $this->run_wkhtml2pdf_cmd($cmd);
 
         return false;
