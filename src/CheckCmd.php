@@ -6,7 +6,7 @@ namespace CmdPDF;
  * Class CheckCmd
  *
  * This is a very simple class that will concern itself with checking if a specific command exists
- * on the opperating system.
+ * on the operating system.
  *
  * @todo
  * - L - Do we have to check that the command exists every time? Can we cache the result for a specific time?
@@ -23,34 +23,32 @@ class CheckCmd
     private $shell_command;
 
     /**
-     * CheckCMD constructor.
+     * CheckCmd constructor.
      * @param String $shell_command
+     * @throws \Exception
      */
     public function __construct(String $shell_command)
     {
         // check that the class was constructed with the shell command which should be checked.
         if (!empty($shell_command)) {
-            $this->shell_command;
+            $this->shell_command = $shell_command;
+        } else {
+            throw new \Exception("No command specified to check.");
         }
     }
 
     /**
      * @return bool
+     * @throws \Exception
      */
     public function check()
     {
-        if (empty($this->shell_command)) {
-            return false;
-        }
-
-        $check = shell_exec('where ' . $this->shell_command);
-
-        var_dump($check);
+        $check = shell_exec(sprintf('which %s 2>/dev/null', escapeshellcmd($this->shell_command)));
 
         if (!empty($check)) {
             return true;
         }
 
-        return false;
+        throw new \Exception(sprintf("The %s command does not exist on this operating system. You will have to install it or add it to your PATHS.", $this->shell_command));
     }
 }
