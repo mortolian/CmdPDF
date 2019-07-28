@@ -69,9 +69,6 @@ class StreamToBrowser
             // nifty way to set dynamic content to be cached until it changes.
             $etag = md5(time());
 
-            // pause output, just to make sure file is written to disk completely
-            usleep(200);
-
             header('Content-Description: File Transfer');
             header('Content-Type: ' . $this->content_type);
             header('Content-Disposition: ' . $content_disposition . '; filename="' . basename($this->file_path) . '"');
