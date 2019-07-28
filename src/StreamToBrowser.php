@@ -8,9 +8,7 @@ namespace CmdPDF;
  *
  * @todo
  * - If no output filename is specified, the base filename of the source should be used.
- * - Force download option.
  * - cache header option.
- * - Browser regression methods
  *
  * Class StreamToBrowser
  * @package CmdPDF
