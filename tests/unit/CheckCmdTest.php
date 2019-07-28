@@ -9,7 +9,7 @@ class CheckCmdTest extends PHPUnit\Framework\TestCase
      */
     public function check_a_shell_command()
     {
-        $chk_cmd = new CheckCmd('ph');
+        $chk_cmd = new CheckCmd('php');
         $this->assertTrue($chk_cmd->check());
     }
 }
