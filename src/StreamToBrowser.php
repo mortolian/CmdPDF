@@ -15,6 +15,5 @@ class StreamToBrowser
 {
     public function __construct()
     {
-
     }
 }

@@ -12,8 +12,8 @@ class Wkhtmltopdf
 {
     const WKHTHMLTOPDF_BINARY_LOCATION = false;
 
-    private $cache_path = __DIR__ . '/../../cache';
-    private $path = __DIR__ . '/../../cache';
+    private $cache_path = __DIR__ . '/../cache';
+    private $path = __DIR__ . '/../cache';
     private $file_name = "";
     private $options = "";
 
@@ -103,7 +103,7 @@ class Wkhtmltopdf
      * @param array $options
      * @return string
      */
-    public function setOptions(Array $options = [])
+    public function setOptions(array $options = [])
     {
         if (!empty($options)) {
             $this->options = implode(" ", $options);
@@ -177,7 +177,7 @@ class Wkhtmltopdf
 
         $this->run_wkhtml2pdf_cmd($cmd);
 
-        return False;
+        return false;
     }
 
 
