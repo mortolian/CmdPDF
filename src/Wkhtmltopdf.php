@@ -139,7 +139,6 @@ class Wkhtmltopdf
                     throw new Exception('PDF was not generated successfully.');
             }
         } catch (Exception $e) {
-            print_r($exit_code);
             return $e->getMessage();
         }
     }
@@ -203,7 +202,7 @@ class Wkhtmltopdf
             return false;
         }
         $cmd = $this->genCommand($this->options, $url, $this->getFullPath());
-        echo $this->run_wkhtml2pdf_cmd($cmd);
+        $this->run_wkhtml2pdf_cmd($cmd);
 
         return false;
     }
