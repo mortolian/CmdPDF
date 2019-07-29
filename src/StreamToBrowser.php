@@ -8,7 +8,7 @@ namespace CmdPDF;
  *
  * @todo
  * - If no output filename is specified, the base filename of the source should be used.
- * - cache header option.
+ * - cache header option. Possibly setting some simple options.
  *
  * Class StreamToBrowser
  * @package CmdPDF
@@ -32,6 +32,9 @@ class StreamToBrowser
         }
         if (empty($output_filename)) {
             throw new Exception("No output filename supplied.");
+        }
+        if(!file_exists($file_path)) {
+           throw new Exception("Source File does not exist.");
         }
 
         $this->file_path = $file_path;

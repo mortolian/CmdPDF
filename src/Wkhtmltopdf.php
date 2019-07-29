@@ -1,4 +1,5 @@
 <?php
+
 namespace CmdPDF;
 
 /**
@@ -11,7 +12,6 @@ namespace CmdPDF;
  * @author Gideon <project@mortolio.com>
  * @license http://www.opensource.org/licenses/MIT
  */
-
 class Wkhtmltopdf
 {
     const WKHTHMLTOPDF_BINARY_LOCATION = false;
@@ -42,7 +42,7 @@ class Wkhtmltopdf
         $cmd = sprintf('rm -f %s/*.html', $folder);
         exec($cmd, $output, $exit_code);
 
-        if($exit_code == 0) {
+        if ($exit_code == 0) {
             return true;
         }
 
@@ -87,6 +87,14 @@ class Wkhtmltopdf
     }
 
     /**
+     * @return string
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
      * This will execute the shell command whatever it will be.
      * It will check for the
      *
@@ -128,7 +136,7 @@ class Wkhtmltopdf
      */
     private function genCommand(String $options = "", String $uri = "", String $destination_path = "")
     {
-        return sprintf('wkhtmltopdf %s %s %s', $options, $uri, $destination_path);
+        return sprintf('wkhtmltopdf -q %s %s %s', $options, $uri, $destination_path);
     }
 
     /**
@@ -154,7 +162,7 @@ class Wkhtmltopdf
 
         $temp_file = "file://" . $temp_file;
 
-        $cmd = $this->genCommand($this->options, $temp_file, $this->getFilePath());
+        $cmd = $this->genCommand($this->getOptions(), $temp_file, $this->getFilePath());
         $this->run_wkhtml2pdf_cmd($cmd);
 
         return false;
@@ -172,7 +180,7 @@ class Wkhtmltopdf
         if (empty($url)) {
             return false;
         }
-        $cmd = $this->genCommand($this->options, $url, $this->getFilePath());
+        $cmd = $this->genCommand($this->getOptions(), $url, $this->getFilePath());
         $this->run_wkhtml2pdf_cmd($cmd);
 
         return false;
