@@ -31,4 +31,4 @@ Run ```composer install```
 You can find more in depth documentation under ```/documentation/*``` in this project root path.
 
 ## Contributors
-* Gideon <project@mortolio.com>
+* Gideon Schoonbee <project@mortolio.com>

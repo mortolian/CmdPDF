@@ -1,20 +1,23 @@
 <?php
-
 namespace CmdPDF;
 
 /**
  * Class Wkhtmltopdf
  *
+ * This class concerns itself with generating a PDF from an HTML document.
+ * It can process both HTML URL and STRING to generate the PDF document, however
+ * the HTML STRING does not always work well on complex pages.
+ *
  * @author Gideon <project@mortolio.com>
  * @license http://www.opensource.org/licenses/MIT
  */
+
 class Wkhtmltopdf
 {
     const WKHTHMLTOPDF_BINARY_LOCATION = false;
 
     private $cache_path = __DIR__ . '/../cache';
-    private $path = __DIR__ . '/../cache';
-    private $file_name = "";
+    private $file_path = "";
     private $options = "";
 
     public function __construct()
@@ -32,11 +35,18 @@ class Wkhtmltopdf
      * This will remove all the temporary HTML files which was created during the life of this class.
      *
      * @param String $folder
+     * @return boolean
      */
     private function deleteTempFiles(String $folder = "")
     {
         $cmd = sprintf('rm -f %s/*.html', $folder);
-        shell_exec($cmd);
+        exec($cmd, $output, $exit_code);
+
+        if($exit_code == 0) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -45,54 +55,19 @@ class Wkhtmltopdf
     public function setFilePath(String $path = "")
     {
         if (!empty($path)) {
-            $this->path = $path;
+            $this->file_path = $path;
         }
     }
 
     /**
-     * @param String $file_name
-     * @return bool
-     */
-    public function setFileName(String $file_name = '')
-    {
-        if (empty($file_name)) {
-            return false;
-        } else {
-            $this->file_name = $file_name;
-        }
-    }
-
-
-    /**
-     * This method will return the full path.
+     * This will return the full path.
      *
      * @return bool|string
      */
-    private function getFullPath()
+    public function getFilePath()
     {
-        if (!empty($this->path) && !empty($this->file_name)) {
-            $array = array($this->path, $this->file_name);
-            array_walk_recursive($array, function (&$component) {
-                $component = rtrim($component, '/');
-            });
-
-            $full_path = implode('/', $array);
-            return $full_path;
-        }
-
-        if (!empty($this->file_name)) {
-            $array = array($this->path, $this->file_name);
-            array_walk_recursive($array, function (&$component) {
-                $component = rtrim($component, '/');
-            });
-
-            $full_path = implode('/', $array);
-            return $full_path;
-        }
-
-        return false;
+        return $this->file_path;
     }
-
 
     /**
      * This will accept all WKHTMLTOPDF command line options as an array.
@@ -110,7 +85,6 @@ class Wkhtmltopdf
             $this->options = implode(" ", $options);
         }
     }
-
 
     /**
      * This will execute the shell command whatever it will be.
@@ -136,13 +110,12 @@ class Wkhtmltopdf
                     return $exit_code;
                     break;
                 default:
-                    throw new Exception('PDF was not generated successfully.');
+                    throw new Exception('PDF was not generated successfully. :: ' . $output . '(' . $exit_code . ')');
             }
         } catch (Exception $e) {
             return $e->getMessage();
         }
     }
-
 
     /**
      * This will very simply return the best effort version of the command required to
@@ -157,7 +130,6 @@ class Wkhtmltopdf
     {
         return sprintf('wkhtmltopdf %s %s %s', $options, $uri, $destination_path);
     }
-
 
     /**
      * This function will allow you to pass a simple HTML string to WKHTMLTOPDF and it will generate a PDF from it.
@@ -182,12 +154,11 @@ class Wkhtmltopdf
 
         $temp_file = "file://" . $temp_file;
 
-        $cmd = $this->genCommand($this->options, $temp_file, $this->getFullPath());
+        $cmd = $this->genCommand($this->options, $temp_file, $this->getFilePath());
         $this->run_wkhtml2pdf_cmd($cmd);
 
         return false;
     }
-
 
     /**
      * This is for the normal operation of WKHTMLTOPDF where you supply it with the URL you would like to turn into
@@ -201,7 +172,7 @@ class Wkhtmltopdf
         if (empty($url)) {
             return false;
         }
-        $cmd = $this->genCommand($this->options, $url, $this->getFullPath());
+        $cmd = $this->genCommand($this->options, $url, $this->getFilePath());
         $this->run_wkhtml2pdf_cmd($cmd);
 
         return false;

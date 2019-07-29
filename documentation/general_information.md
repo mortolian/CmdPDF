@@ -17,6 +17,12 @@ The general usage would be:
 wkhtmltopdf http://google.com google.pdf
 ```
 
+### ImageMagick
+
+Most ideal command for preview image creation
+```convert -density 150 tax.pdf[0] -quality 70 -flatten tax.png```
+
+
 #### Resources
 * https://github.com/wkhtmltopdf/wkhtmltopdf
 * http://qpdf.sourceforge.net/files/qpdf-manual.html#ref.basic-options

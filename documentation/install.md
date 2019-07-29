@@ -13,3 +13,7 @@ Install QPDF on Ubuntu 18.04
 
 * ```sudo apt update -y && sudo apt upgrade -y```
 * ```sudo apt install -y qpdf```
+
+Install ImageMagick
+
+```brew install ghostscript```

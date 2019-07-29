@@ -1,3 +1,4 @@
+# User Notes
 ## Usage
 Create a basic PDF from a URL
 
@@ -9,7 +10,8 @@ $pdf->setFileName('google.pdf');
 $pdf->url2pdf('https://www.google.com');
 ```
 
-## Exit Codes
+# Developer Notes
+### Exit Codes
 
 * 0	- All OK
 * 1	- PDF generated OK, but some request(s) did not return HTTP 200
@@ -21,7 +23,7 @@ $pdf->url2pdf('https://www.google.com');
 * B	- Could not find input file(s)
 * C	- Process timeout
 
-## Options Documentation
+### Options Documentation
 
 ```text
 Name:
