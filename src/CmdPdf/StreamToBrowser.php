@@ -1,6 +1,6 @@
 <?php
 
-namespace CmdPDF;
+namespace CmdPdf;
 
 /**
  * This is a very simple class which concerns itself with streaming the content of a file

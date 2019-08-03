@@ -1,6 +1,6 @@
 <?php
 
-namespace CmdPDF;
+namespace CmdPdf;
 
 class Xpdf
 {

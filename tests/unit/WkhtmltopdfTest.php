@@ -1,6 +1,8 @@
 <?php
 
-use CmdPDF\Wkhtmltopdf;
+namespace CmdPdfTest;
+
+use CmdPdf\Wkhtmltopdf;
 use PHPUnit\Framework\TestCase;
 
 class WkhtmltopdfTest extends TestCase

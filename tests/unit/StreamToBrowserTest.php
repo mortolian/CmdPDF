@@ -1,6 +1,8 @@
 <?php
 
-use CmdPDF\StreamToBrowser;
+namespace CmdPdfTest;
+
+use CmdPdf\StreamToBrowser;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Error\Error;
 

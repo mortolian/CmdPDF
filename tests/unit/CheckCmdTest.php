@@ -1,8 +1,11 @@
 <?php
 
-use CmdPDF\CheckCmd;
+namespace CmdPdfTest;
 
-class CheckCmdTest extends PHPUnit\Framework\TestCase
+use CmdPdf\CheckCmd;
+use PHPUnit\Framework\test;
+
+class CheckCmdTest
 {
     /**
      * @test
