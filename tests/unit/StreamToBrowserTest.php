@@ -4,7 +4,6 @@ namespace CmdPdfTest;
 
 use CmdPdf\StreamToBrowser;
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\Error\Error;
 
 class StreamToBrowserTest extends TestCase
 {

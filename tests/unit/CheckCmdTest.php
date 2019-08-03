@@ -3,9 +3,9 @@
 namespace CmdPdfTest;
 
 use CmdPdf\CheckCmd;
-use PHPUnit\Framework\test;
+use PHPUnit\Framework\TestCase;
 
-class CheckCmdTest
+class CheckCmdTest extends TestCase
 {
     /**
      * @test
