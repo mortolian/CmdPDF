@@ -12,11 +12,11 @@ namespace CmdPdf;
  * @author Gideon <project@mortolio.com>
  * @license http://www.opensource.org/licenses/MIT
  */
-class Wkhtmltopdf
+class Wkhtmltopdf2
 {
     const WKHTHMLTOPDF_BINARY_LOCATION = false;
 
-    private $cache_path = __DIR__ . '/../../var/cache';
+    private $cache_path = __DIR__ . '/../cache';
     private $file_path = "";
     private $options = "";
 
