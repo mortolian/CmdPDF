@@ -12,7 +12,7 @@ namespace CmdPdf;
  *
  * Class StreamToBrowser
  * @package CmdPDF
- * @author Gideon Schoonbee <project@mortolio.com>
+ * @author Mortolian <project@mortolio.com>
  * @license MIT
  */
 class StreamToBrowser

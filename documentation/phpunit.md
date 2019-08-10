@@ -1,10 +1,16 @@
 ## Unit Tests
 
-##### To test you will require PHPUnit
+To test you will require PHPUnit installed on your OS.
 
-* Ubuntu 18.04  ```sudo apt install -y phpunit```
-* MacOSX ```brew install phpunit```
+##### Ubuntu 18.04  
+```
+sudo apt install phpunit
+```
 
-##### Read documentation
+##### MacOSX 
+```
+brew install phpunit
+```
 
-```https://phpunit.de```
+#### PHP Unit Documentation
+* [PHPUnit Official Website](https://phpunit.de)

@@ -1,17 +1,54 @@
-# User Notes
-## Usage
-Create a basic PDF from a URL
+# Usage
+#### Create a Basic PDF From a URL.
 
 ```php
-use CmdPDF\Wkhtmltopdf;
+<?php
 
-$pdf = new Wkhtmltopdf();
-$pdf->setFileName('google.pdf');
-$pdf->url2pdf('https://www.google.com');
+include_once '../vendor/autoload.php';
+
+use CmdPdf\Wkhtmltopdf;
+
+$pdf = new Wkhtmltopdf('https://www.google.com');
+$pdf->setOptions(array('--footer-center "Page [page] of [topage]"'));
+$pdf->download('google.pdf', Wkhtmltopdf::DISPOSITION_DOWNLOAD);
 ```
 
-# Developer Notes
-### Exit Codes
+#### Set WKhtmltopdf options
+You can set most of the options provided with WKhtmltopdf by using ```setOptions()```. The method
+accepts an array of options.
+
+```php
+$pdf->setOptions([
+    '--footer-right "Page [page] of [topage]"',
+    '--footer-right "Document Name"',
+    '-s A4'
+]);
+```
+
+#### Download The PDF
+You can force the download of the PDF through a browser by using ```download([filename],[content_disposition])```.
+
+```php
+$pdf->download('filename.pdf', self::DISPOSITION_DOWNLOAD);
+```
+
+#### Stream PDF To Browser
+You can stream the PDF as a BASE64 data stream by using ```download([filename],[content_disposition])```.
+
+```php
+$pdf->download('filename.pdf', self::DISPOSITION_INLINE);
+```
+
+#### Save The PDF
+You can save the PDF to disk for later use of to be modified. Some applications may need to cache
+the PDF for performance, you can do this using ```save([filepath])```
+
+```php
+$pdf->save('filename.pdf');
+```
+
+## WKhtmltopdf Notes
+#### Exit Codes
 
 * 0	- All OK
 * 1	- PDF generated OK, but some request(s) did not return HTTP 200
@@ -23,7 +60,7 @@ $pdf->url2pdf('https://www.google.com');
 * B	- Could not find input file(s)
 * C	- Process timeout
 
-### Options Documentation
+#### Options Documentation
 
 ```text
 Name:

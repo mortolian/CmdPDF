@@ -9,85 +9,53 @@ namespace CmdPdf;
  * It can process both HTML URL and STRING to generate the PDF document, however
  * the HTML STRING does not always work well on complex pages.
  *
- * @author Gideon <project@mortolio.com>
+ * @author Mortolian <project@mortolio.com>
  * @license http://www.opensource.org/licenses/MIT
  */
 class Wkhtmltopdf
 {
-    const WKHTHMLTOPDF_BINARY_LOCATION = false;
-
-    private $cache_path = __DIR__ . '/../../var/cache';
-    private $file_path = "";
-    private $options = "";
-
-    public function __construct()
-    {
-        $check_wkhtmltopdf = new CheckCmd('wkhtmltopdf');
-        $check_wkhtmltopdf->check();
-    }
-
-    public function __destruct()
-    {
-        $this->deleteTempFiles($this->cache_path);
-    }
+    /**
+     * Content disposition constant properties
+     */
+    const DISPOSITION_INLINE = 'inline';
+    const DISPOSITION_DOWNLOAD = 'attachment';
 
     /**
-     * This will remove all the temporary HTML files which was created during the life of this class.
-     *
-     * @param String $folder
-     * @return boolean
+     * @var string This is the URL which will be converted to PDF.
      */
-    private function deleteTempFiles(String $folder = "")
-    {
-        $cmd = sprintf('rm -f %s/*.html', $folder);
-        exec($cmd, $output, $exit_code);
+    private $url;
 
-        if ($exit_code == 0) {
-            return true;
+    /**
+     * @var array This is the value of the WKHTMLTOPDF options which can be set. Refer to WKHTMLTOPDF help / MAN page.
+     */
+    private $options = [];
+
+    /**
+     * Wkhtmltopdf constructor.
+     * @param string $url
+     * @throws \Exception
+     */
+    public function __construct(string $url)
+    {
+        if (empty($url)) {
+            throw new \Exception('No URL specified to turn into PDF');
         }
 
-        return false;
+        $this->url = $url;
     }
 
     /**
-     * @param String $path
-     */
-    public function setFilePath(String $path = "")
-    {
-        if (!empty($path)) {
-            $this->file_path = $path;
-        }
-    }
-
-    /**
-     * This will return the full path.
-     *
-     * @return bool|string
-     */
-    public function getFilePath()
-    {
-        return $this->file_path;
-    }
-
-    /**
-     * This will accept all WKHTMLTOPDF command line options as an array.
-     * Each option will be added to a final string to the command which will be run, seperated with a space.
-     *
-     * @see https://wkhtmltopdf.org/usage/wkhtmltopdf.txt
-     * @example $mpdf->setOptions(['--collate','--page-size A4']);
-     *
      * @param array $options
-     * @return string
      */
-    public function setOptions(array $options = [])
+    public function setOptions(array $options = array())
     {
-        if (!empty($options)) {
-            $this->options = implode(" ", $options);
-        }
+        if(empty($options)) { return; }
+        $this->options = implode(" ", $options);
+        return;
     }
 
     /**
-     * @return string
+     * @return array
      */
     public function getOptions()
     {
@@ -95,94 +63,80 @@ class Wkhtmltopdf
     }
 
     /**
-     * This will execute the shell command whatever it will be.
-     * It will check for the
+     * Saves the PDF to disk.
      *
-     * @param String $cmd
-     * @return bool|string|null
-     */
-    private function run_wkhtml2pdf_cmd(String $cmd = "")
-    {
-        if (empty($cmd)) {
-            return false;
-        }
-
-        try {
-            exec($cmd, $output, $exit_code);
-
-            switch ($exit_code) {
-                case '0':
-                    return $exit_code;
-                    break;
-                case '1':
-                    return $exit_code;
-                    break;
-                default:
-                    throw new Exception('PDF was not generated successfully. :: ' . $output . '(' . $exit_code . ')');
-            }
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
-    /**
-     * This will very simply return the best effort version of the command required to
-     * create a PDF through wkhtmltopdf.
-     *
-     * @param String $options
-     * @param String $uri
-     * @param String $destination_path
-     * @return string
-     */
-    private function genCommand(String $options = "", String $uri = "", String $destination_path = "")
-    {
-        return sprintf('wkhtmltopdf -q %s %s %s', $options, $uri, $destination_path);
-    }
-
-    /**
-     * This function will allow you to pass a simple HTML string to WKHTMLTOPDF and it will generate a PDF from it.
-     * This does not always work as well as supplying a URL, since the resolving of images etc. may not work as
-     * expected.
-     *
-     * @param String $string
+     * @param string $filepath
      * @return bool
+     * @throws \Exception
      */
-    public function htmlString2pdf(String $string = "")
+    public function save(string $filepath)
     {
-        if (empty($string)) {
-            return false;
+        if (empty($filepath)) {
+            throw new \Exception('No file location specified to save the generated pdf.');
         }
 
-        // write the string to an HTML file
-        $temp_file = $this->cache_path . DIRECTORY_SEPARATOR . md5(time()) . ".html";
+        // Run wkhtmltopdf
+        $descriptorspec = array(
+            0 => array('pipe', 'w'), // stdout
+            1 => array('pipe', 'w'), // stderr
+        );
+        $process = proc_open('wkhtmltopdf -q ' . $this->options . ' ' . $this->url . ' ' . $filepath, $descriptorspec, $pipes);
 
-        $tsf = fopen($temp_file, 'w');
-        fwrite($tsf, $string);
-        fclose($tsf);
+        // Read the outputs
+        $errors = stream_get_contents($pipes[1]);
 
-        $temp_file = "file://" . $temp_file;
+        // Close the process
+        fclose($pipes[1]);
+        proc_close($process);
 
-        $cmd = $this->genCommand($this->getOptions(), $temp_file, $this->getFilePath());
-        $this->run_wkhtml2pdf_cmd($cmd);
-
-        return false;
+        if ($errors) {
+            throw new \Exception('PDF generation failed: ' . $errors);
+        } else {
+            return true;
+        }
     }
 
     /**
-     * This is for the normal operation of WKHTMLTOPDF where you supply it with the URL you would like to turn into
-     * a pdf. This method works the best and produces the best looking consistent results.
+     * Output's the PDF to the browser for download or display
      *
-     * @param String $url
-     * @return bool
+     * @param string $filename
+     * @param string $content_disposition
+     * @throws \Exception
      */
-    public function url2pdf(String $url = "")
+    public function download(string $filename = 'download.pdf', string $content_disposition = self::DISPOSITION_INLINE)
     {
-        if (empty($url)) {
-            return false;
-        }
-        $cmd = $this->genCommand($this->getOptions(), $url, $this->getFilePath());
-        $this->run_wkhtml2pdf_cmd($cmd);
+        // Run wkhtmltopdf
+        $descriptorspec = array(
+            0 => array('pipe', 'r'), // stdin
+            1 => array('pipe', 'w'), // stdout
+            2 => array('pipe', 'w'), // stderr
+        );
+        $process = proc_open('wkhtmltopdf -q ' . $this->options . ' ' . $this->url . ' -', $descriptorspec, $pipes);
 
-        return false;
+        // Read the outputs
+        $pdf = stream_get_contents($pipes[1]);
+        $errors = stream_get_contents($pipes[2]);
+
+        // Close the process
+        fclose($pipes[1]);
+        proc_close($process);
+
+        if ($errors) {
+            throw new \Exception('PDF generation failed: ' . $errors);
+        } else {
+            // nifty way to set dynamic content to be cached until it changes.
+            $etag = md5(time());
+
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: ' . $content_disposition . '; filename="' . basename($filename) . '"');
+            header('Cache-Control: max-age=86400');
+            header('ETag: ' . $etag);
+            header('Pragma: public');
+            header('Content-Length: ' . strlen($pdf));
+
+            echo $pdf;
+            exit;
+        }
     }
 }

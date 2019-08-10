@@ -1,19 +1,55 @@
+# Install
+
+To install all you have to do is clone the project into your own project. Because the project is hosted in two
+different locations, you will have to fill in the blanks below.
+
+```git clone [git source] [git dest]```
+
+Then you will need to run ```composer install``` on your project. This project uses PSR-4 autoloading.
+
+
+# Install Dependencies on OS
+
+To use the PDF utility classes you will need to install certain dependencies on the OS. I only test and cover
+IOS and Ubuntu, but I am sure you should be able to adapt the below instructions for your OS. I have only tested the
+versions listed below, but I am sure that the major version or newer will work.
+
 ## Ubuntu 18.04
 
-The following will install the latest stable release of wkhtmltopdf.
+First update
 
-* ```sudo apt update -y && sudo apt upgrade -y```
-* ```sudo apt install wkhtmltopdf```
+```sudo apt update```
 
-You can also install the Python3 wrapper for wkhtmltopdf.
+Install wkhtmltopdf (0.12.5)
 
-* ```sudo apt install python3-pdfkit```
+```sudo apt install wkhtmltopdf```
 
-Install QPDF on Ubuntu 18.04
+Install Qpdf (8.4.2)
 
-* ```sudo apt update -y && sudo apt upgrade -y```
-* ```sudo apt install -y qpdf```
+```sudo apt install qpdf```
 
-Install ImageMagick
+Install ImageMagick (7.0.8)
 
-```brew install ghostscript```
+```sudo apt install imagemagick ghostscript```
+
+
+## IOS
+
+First update brew
+
+``` brew update```
+
+Install wkhtmltopdf (0.12.5)
+
+```brew install wkhtmltopdf```
+
+Install Qpdf (8.4.2)
+
+```brew install qpdf```
+
+Install ImageMagick (7.0.8)
+
+```
+brew install imagemagick
+brew install ghostscript
+```

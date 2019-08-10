@@ -13,9 +13,9 @@ namespace CmdPdf;
  * - H - Can we check the version of a command?
  *
  * @package CmdPDF
- * @author Gideon Schoonbee <project@mortolio.com>
+ * @author Mortolian <project@mortolio.com>
  * @version 0.1.0
- * @license MIT
+ * @license GNU GPLv3
  */
 
 class CheckCmd

@@ -4,10 +4,10 @@
   "description": "Command PDF is a small wrapper which is helpful with PDF tasks in PHP.",
   "keywords": ["pdf","wrapper","php","wkhtmltopdf"],
   "homepage": "https://gideon.mortolio.com",
-  "license": "MIT",
+  "license": "GNU GPLv3",
   "authors": [
     {
-      "name": "Gideon Schoonbee",
+      "name": "Mortolian",
       "email": "project@mortolio.com",
       "homepage": "https://gideon.mortolio.com",
       "role": "Developer"

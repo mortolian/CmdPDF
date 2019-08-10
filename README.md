@@ -1,13 +1,25 @@
 # Command PDF
 
 Command PDF is a small wrapper which is helpful with PDF tasks in PHP.
-It uses several well known CLI tools to perform it's tasks. 
+It uses several well known CLI tools to perform it's tasks.
 
-## TODO
-1. Create unit tests
-2. Streaming PDF to browser (general class)
+### Features
 
-## Dependencies
+* Convert HTML page to PDF
+  * Download created PDF
+  * Stream created PDF to browser
+  * Save created PDF to disk
+* Create a preview image from an existing PDF
+
+
+### Getting Started
+Read the install documentation to guide you through getting started.
+
+### Documentation
+
+You can find more in depth documentation under ```/documentation/*``` in this project root path.
+
+### Dependencies
 
 * php7.*
 * composer 1.8.*
@@ -21,14 +33,5 @@ It uses several well known CLI tools to perform it's tasks.
 * pdfinfo 4.*
 * ImageMagick 7.*
 
-## Getting Started
-Clone and include the code in your project
-
-Run ```composer install```
-
-## Documentation
-
-You can find more in depth documentation under ```/documentation/*``` in this project root path.
-
-## Contributors
-* Gideon Schoonbee <project@mortolio.com>
+### Contributors
+* Mortolian <project@mortolio.com>
