@@ -4,7 +4,7 @@ include_once '../vendor/autoload.php';
 
 use CmdPdf\PreviewImage;
 
-$img = new PreviewImage('pdf/gg266.pdf');
+$img = new PreviewImage('pdf/example.pdf');
 $img->setImageType(PreviewImage::FILE_TYPE_JPG);
 $img->setImageQuality('100');
 $img->setImageSize('50%');
