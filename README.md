@@ -11,7 +11,6 @@ It uses several well known CLI tools to perform it's tasks.
   * Save created PDF to disk
 * Create a preview image from an existing PDF
 
-
 ### Getting Started
 Read the install documentation to guide you through getting started.
 
