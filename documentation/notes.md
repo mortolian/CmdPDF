@@ -23,5 +23,8 @@ convert -density 150 tax.pdf[0] -quality 70 -flatten tax.png
 * https://imagemagick.org
 * https://www.xpdfreader.com
 
+* https://ocrmypdf.readthedocs.io/en/latest/installation.html
+
+
 #### Commercial Resources
 * http://www.pdf-tools.com
